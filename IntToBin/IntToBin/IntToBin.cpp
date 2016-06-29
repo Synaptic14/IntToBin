@@ -1,36 +1,35 @@
 #include "stdafx.h"
 #include <iostream>
 #include <Windows.h>
-#include <string.h>
+#include <string>
+#include <sstream>
 #include <cmath>
 #include "Constants.h"
 #include <limits>
+#include "IntToBin.h"
 
-void outputResult(int* outputArray, int numIterate)
+int main()
 {
-	int i = numIterate;
-	std::cout << "\n Binary Result: ";
-	while (i > 0)
-	{
-		std::cout << outputArray[i];
-		i--;
-	}
-	std::cout << "\n\n";
-	std::cout << "Press Enter to try again.";
-	std::cin.ignore(32767, '\n');
+	bool playingAgain = false;
+	do {
+		system("cls");
+		greetMessage();
+		int inputNumber = getInput();
+		convertToBinary(inputNumber);
+		playingAgain = isPlayingAgain();
+
+
+	} while (playingAgain);
+	return 0;
 }
 
-/* Determine how many places the binary number will span*/
-int getBinLength(int i)
+bool isPlayingAgain()
 {
-	int m = 1;
-	int c = 0;
-	while (i > m)
-	{
-		m *= 2;
-		c++;
-	}
-	return c;
+	using namespace std;
+	string playAgain = "";
+	cout << "Would you like to convert another Integer? (Y/N)" << endl;
+	getline(cin, playAgain);
+	return (playAgain[0] == 'y' || playAgain[0] == 'Y');
 }
 
 
@@ -38,10 +37,6 @@ int getBinLength(int i)
 /* Convert int to bin */
 void convertToBinary(int a)
 {
-	if (a <= 0)
-	{
-		throw 2;
-	}
 	int i = 1;
 	int binBit;
 	double curMult;
@@ -79,22 +74,44 @@ void convertToBinary(int a)
 
 	outputResult(binOutput, origBinLength);
 }
-/* Get the input and send to conversion*/
-void getInput()
+
+/* Determine how many places the binary number will span*/
+int getBinLength(int i)
+{
+	int m = 1;
+	int c = 0;
+	while (i > m)
+	{
+		m *= 2;
+		c++;
+	}
+	return c;
+}
+
+void outputResult(int* outputArray, int numIterate)
 {
 	using namespace std;
-	cout << "Please enter an integer or type 0 to exit: ";
-	int inputNumber;
-	while (!(cin >> inputNumber)) {
-		cin.clear();
-		cin.ignore(INT_MAX, '\n');
-	}
-	cin >> inputNumber;
-	if (cin.fail())
+	int i = numIterate;
+	cout << "\n Binary Result: ";
+	while (i > 0)
 	{
-		throw "Please enter an Integer";
+		std::cout << outputArray[i];
+		i--;
 	}
-	convertToBinary(inputNumber);
+	cout << endl;
+}
+
+/* Get the input and send to conversion*/
+int getInput()
+{
+	using namespace std;
+	int inputNumber;
+	string inputString = "";
+	cout << "Please enter an integer: ";
+	getline(cin, inputString);
+	stringstream convert(inputString);
+	convert >> inputNumber;
+	return inputNumber;
 
 }
 
@@ -103,31 +120,5 @@ void greetMessage()
 	std::cout << "Welcome, this program will convert a number to it's binary equivalent.(Max size of 16bits)\n\n";
 }
 
-void startLoop()
-{
-	system("cls");
-	greetMessage();
-	getInput();
-	std::cin.ignore(32767, '\n');
-}
 
-int main()
-{
-	int zz = 1;
-	while (zz = 1)
-	{
-		startLoop();
-		/*catch (const char* strException) {
-		std::cerr << "Error: " << strException;
-		std::cin.ignore(32767, '\n');
-		std::cin.clear();
-		Sleep(2500);
-		}
-		catch (int e) {
-		exit(0);*/
-
-	}
-	std::cin.ignore(32767, '\n');
-	return 0;
-}
 
