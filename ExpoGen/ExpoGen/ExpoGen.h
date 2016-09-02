@@ -1,15 +1,13 @@
-#ifndef ExpoGen_h
 #define ExpoGen_h
 #include "resource.h"
 
-void greetmessage();
-int runGenerator();
+void greetMessage();
+void runGenerator();
 int getBaseNumber();
-double GetExponent();
+int getExponent();
+void generateList(int base, int exp);
 
 namespace expoConstants
 {
 	constexpr double exponent = 1.1;
 }
-
-#endif

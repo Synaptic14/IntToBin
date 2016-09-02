@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "ExpoGen.h"
 
 int main()
 {
 	greetMessage();
 	runGenerator();
+	return 0;
 }
 
 void greetMessage()
@@ -15,12 +17,11 @@ void greetMessage()
 	cout << "Welcome to the Exponential Number Generator" << endl;
 }
 
-int runGenerator()
+void runGenerator()
 {
 	int baseNumber = getBaseNumber();
-	double exponent = getExponent();
-	int numLimit = getNumLimit();
-	generateList(baseNumber, exponent, numLimit);
+	int exponent = getExponent();
+	generateList(baseNumber, exponent);
 }
 
 int getBaseNumber()
@@ -32,29 +33,23 @@ int getBaseNumber()
 	return baseNumber;
 }
 
-double getExponent()
+int getExponent()
 {
 	using namespace std;
 	double exponent = 0;
 	cout << "Please enter the exponent: ";
 	cin >> exponent;
+	static_cast<int> (exponent);
 	return exponent;
 }
 
-int getNumLimit()
+void generateList(int base, int exp)
 {
-	using namespace std;
-	int numLimit = 0;
-	cout << "Please enter the Number Limit: ";
-	cin >> numLimit;
-	return numLimit;
-}
-
-int generateList(int base, double exp, int numLimit)
-{
-	while (int i < numLimit)
+	int i = 1;
+	while (i < exp)
 	{
-		int nextNumber = (base * exp) + base;
+		int currentNumber = std::pow(base, i);
+		std::cout << i + "." << currentNumber << std::endl;
+		i++;
 	}
-	
 }
