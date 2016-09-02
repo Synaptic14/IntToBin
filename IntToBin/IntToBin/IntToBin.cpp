@@ -17,8 +17,6 @@ int main()
 		int inputNumber = getInput();
 		convertToBinary(inputNumber);
 		playingAgain = isPlayingAgain();
-
-
 	} while (playingAgain);
 	return 0;
 }
